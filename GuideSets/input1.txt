@@ -1,0 +1,10 @@
+<S> - type <F>
+<F> - <I> = <T>
+<F> - <I> = <T> ; <F>
+<T> - int
+<T> - record <G> end
+<G> - <I> : <T>
+<G> - <I> : <T> ; <G>
+<I> - a
+<I> - b
+<I> - c
