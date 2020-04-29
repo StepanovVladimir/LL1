@@ -1,4 +1,4 @@
-<F> - function <G> end / function
+<F> - function <G> end # / function
 <0> - @ / end ;
 <0> - * a <0> / *
 <0> - + a <0> / +

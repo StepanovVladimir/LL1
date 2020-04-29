@@ -282,7 +282,7 @@ public class Main
                 {
                     writer.write(str + " ");
                 }
-                writer.write("/");
+                writer.write("# /");
                 for (String str : rule.guideSet)
                 {
                     writer.write(" " + str);
