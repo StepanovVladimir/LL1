@@ -295,17 +295,37 @@ public class Main
                 {
                     for (Rule rule : rules.getValue())
                     {
-                        writer.write(rules.getKey() + " - ");
-                        for (String str : rule.rule)
+                        if (rule.rule.get(0).equals("@"))
                         {
-                            writer.write(str + " ");
+                            writer.write(rules.getKey() + " - ");
+                            for (String str : rule.rule)
+                            {
+                                writer.write(str + " ");
+                            }
+                            writer.write("/");
+                            for (String str : rule.guideSet)
+                            {
+                                writer.write(" " + str);
+                            }
+                            writer.write("\n");
                         }
-                        writer.write("/");
-                        for (String str : rule.guideSet)
+                    }
+                    for (Rule rule : rules.getValue())
+                    {
+                        if (!rule.rule.get(0).equals("@"))
                         {
-                            writer.write(" " + str);
+                            writer.write(rules.getKey() + " - ");
+                            for (String str : rule.rule)
+                            {
+                                writer.write(str + " ");
+                            }
+                            writer.write("/");
+                            for (String str : rule.guideSet)
+                            {
+                                writer.write(" " + str);
+                            }
+                            writer.write("\n");
                         }
-                        writer.write("\n");
                     }
                 }
             }

@@ -1,0 +1,12 @@
+<S> - type <F> # / type
+<F> - <I> = <T> <A> / a b c
+<T> - int / int
+<T> - record <G> end / record
+<G> - <I> : <T> <B> / a b c
+<I> - a / a
+<I> - b / b
+<I> - c / c
+<A> - @ / #
+<A> - ; <F> / ;
+<B> - @ / end
+<B> - ; <G> / ;
