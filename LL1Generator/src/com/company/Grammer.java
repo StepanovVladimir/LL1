@@ -1,7 +1,6 @@
 package com.company;
 
-public class Grammer
-{
+public class Grammer {
     public String NonTerminal;
     public String Terminal;
     public boolean isSetDir = false;
@@ -10,4 +9,5 @@ public class Grammer
     public Integer stack = -1;
     public Integer Error = 1;
     public Integer EndState = -1;
+    public Integer isEndInLine = 0;
 }

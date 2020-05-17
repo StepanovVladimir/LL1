@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.RandomAccessFile;
 import java.util.*;
 
-
 public class Main {
 
     private static boolean isNonTerminal(String str)
@@ -22,7 +21,6 @@ public class Main {
     {
 
             String[] terminals = analyzeTerminals.split(" ");
-
 
             for (int i = 0; i < terminals.length; i++)
             {
@@ -53,6 +51,12 @@ public class Main {
 
 
                     }
+
+                    if (i == terminals.length - 1)
+                    {
+                        gr.isEndInLine = -1;
+                        System.out.println(terminals[i]);
+                    }
                     saveTable.add(gr);
                 }
             }
@@ -81,7 +85,6 @@ public class Main {
         Scanner scnr = new Scanner(text);
 
         HashMap<String, String> grammar = new HashMap<>();
-        ArrayList<Grammer> saveTable = new ArrayList<>();
         String NonTerminal = "";
         StringBuilder dirs = new StringBuilder();
 
@@ -116,6 +119,7 @@ public class Main {
 
 
         Scanner scnr2 = new Scanner(text);
+        ArrayList<Grammer> saveTable = new ArrayList<>();
 
         String NonTerminalch = "";
         StringBuilder analyzeAlldirs  = new StringBuilder();
@@ -127,14 +131,16 @@ public class Main {
             {
                 String[] dir = value[1].split("/");
 
+                System.out.println(dir[0]);
+
                 if (!NonTerminalch.equals(""))
                 {
-
                     if (!NonTerminalch.equals(value[0])) {
                         saveAnalyzedTerminals(saveTable, grammar, analyzeAlldirs.toString());
                         analyzeAlldirs = new StringBuilder();
                     }
                 }
+
 
                 if (dir.length >= 2) {
                     Grammer gr = new Grammer();
@@ -209,14 +215,6 @@ public class Main {
             {
                 for (int j = i; j >= 0 ; j--)
                 {
-                    /*
-                    if (saveTable.get(j).dirNum == -1)
-                    {
-                        saveTable.get(i).Terminal = saveTable.get(j).Terminal;
-                        saveTable.get(j).dirNum = i+1;
-                        break;
-                    }
-                     */
                     if (saveTable.get(j).isSetDir)
                     {
                         if (j != 0)
@@ -243,8 +241,26 @@ public class Main {
                 if (isNonTerminal(saveTable.get(i).NonTerminal))
                 {
                     if (i + 1!= saveTable.size()) {
-                        if (!saveTable.get(i + 1).isSetDir && isNonTerminal(saveTable.get(i).NonTerminal)) {
-                            saveTable.get(i).stack = 1;
+                        if ((!saveTable.get(i + 1).isSetDir) && isNonTerminal(saveTable.get(i).NonTerminal)) {
+                            boolean was = false;
+                                for (int k = i + 1; k < i + 1 + 4; k++) {
+                                    if (k < saveTable.size()) {
+                                        if (isNonTerminal(saveTable.get(k).NonTerminal)) {
+
+                                            if (saveTable.get(k).isSetDir) {
+                                                break;
+                                            }
+
+                                            if (saveTable.get(i).NonTerminal.equals(saveTable.get(k).NonTerminal)) {
+                                                was = true;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            if(!was) {
+                                saveTable.get(i).stack = 1;
+                            }
                         }
                     }
                 }
@@ -283,12 +299,12 @@ public class Main {
         for(int i = 0; i< saveTable.size(); i++)
         {
            int num = i +1;
-           System.out.println(num + "                   " + saveTable.get(i).Terminal + "               " + saveTable.get(i).Shift+ "                " + saveTable.get(i).dirNum
+           System.out.println(num +  " " + saveTable.get(i).isEndInLine  + "             " +" " +saveTable.get(i).isSetDir + " " +  saveTable.get(i).Terminal + "               " + saveTable.get(i).Shift+ "                " + saveTable.get(i).dirNum
            + "             " + saveTable.get(i).stack + "                "  + saveTable.get(i).Error  + "                "+ saveTable.get(i).EndState);
         }
 
 
-        FileWriter  output = new FileWriter(args[1]);
+        FileWriter output = new FileWriter(args[1]);
         BufferedWriter outputwrite = new BufferedWriter(output);
         outputwrite.flush();
         outputwrite.write("№" +" "+  "DirsSet" +" " + "Sift"  + " " + "DirNum"  + " " + "Stack" + " " +"Error" + " " +"EndState"+ "\n");
@@ -305,13 +321,10 @@ public class Main {
 
         outputwrite.close();
 
-
         RandomAccessFile efile = new RandomAccessFile(text, "rw");
         long length = efile.length();
         length = length - 6;
         efile.setLength(length);
         efile.close();
-
     }
-
 }

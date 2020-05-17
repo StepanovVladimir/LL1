@@ -1,0 +1,1 @@
+type a = int ; b = record a : record c : int end ; c : int end
