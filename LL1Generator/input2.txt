@@ -1,8 +1,8 @@
-<F> - function <G> end # / function
-<0> - @ / end ;
-<0> - * a <0> / *
-<0> - + a <0> / +
-<1> - @ / end
-<1> - ; <G> / ;
-<E> - a <0> / a
-<G> - a := <E> <1> / a
+<F> _ function <G> end # / function
+<0> _ @ / end ;
+<0> _ * a <0> / *
+<0> _ + a <0> / +
+<1> _ @ / end
+<1> _ ; <G> / ;
+<E> _ a <0> / a
+<G> _ a := <E> <1> / a

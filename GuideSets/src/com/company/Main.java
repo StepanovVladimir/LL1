@@ -221,7 +221,7 @@ public class Main
                     }
                     Set<String> researchedNontermChars = new TreeSet<>();
                     researchedNontermChars.add(rules.getKey());
-                    rule.guideSet.addAll(findNext(rules.getKey(), grammar, researchedNontermChars));
+                    rule.guideSet.addAll(findNext(rules.getKey(), grammar, researchedNontermChars, rules.getKey()));
                     guideSet.addAll(rule.guideSet);
                 }
             }
@@ -277,7 +277,7 @@ public class Main
         {
             for (Rule rule : grammar.get(axiom))
             {
-                writer.write(axiom + " - ");
+                writer.write(axiom + " _ ");
                 for (String str : rule.rule)
                 {
                     writer.write(str + " ");
@@ -297,7 +297,7 @@ public class Main
                     {
                         if (rule.rule.get(0).equals("@"))
                         {
-                            writer.write(rules.getKey() + " - ");
+                            writer.write(rules.getKey() + " _ ");
                             for (String str : rule.rule)
                             {
                                 writer.write(str + " ");
@@ -314,7 +314,7 @@ public class Main
                     {
                         if (!rule.rule.get(0).equals("@"))
                         {
-                            writer.write(rules.getKey() + " - ");
+                            writer.write(rules.getKey() + " _ ");
                             for (String str : rule.rule)
                             {
                                 writer.write(str + " ");
@@ -332,7 +332,7 @@ public class Main
         }
     }
 
-    private static Set<String> findNext(String nontermChar, Map<String, ArrayList<Rule>> grammar, Set<String> researchedNontermChars)
+    private static Set<String> findNext(String nontermChar, Map<String, ArrayList<Rule>> grammar, Set<String> researchedNontermChars, String initialNonterm)
     {
         Set<String> guideSet = new TreeSet<>();
         for (Map.Entry<String, ArrayList<Rule>> rules : grammar.entrySet())
@@ -345,7 +345,10 @@ public class Main
                     {
                         if (rule.rule.size() > i + 1)
                         {
-                            guideSet.add(rule.rule.get(i + 1));
+                            if (!rule.rule.get(i + 1).equals(initialNonterm))
+                            {
+                                guideSet.add(rule.rule.get(i + 1));
+                            }
                         }
                         else if (!researchedNontermChars.contains(rules.getKey()))
                         {
@@ -354,7 +357,7 @@ public class Main
                                 guideSet.add("#");
                             }
                             researchedNontermChars.add(rules.getKey());
-                            guideSet.addAll(findNext(rules.getKey(), grammar, researchedNontermChars));
+                            guideSet.addAll(findNext(rules.getKey(), grammar, researchedNontermChars, initialNonterm));
                             researchedNontermChars.remove(rules.getKey());
                         }
                     }
