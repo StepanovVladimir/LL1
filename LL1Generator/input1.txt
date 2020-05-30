@@ -1,12 +1,10 @@
-<S> _ type <F> # / type
-<F> _ <I> = <T> <A> / a b c
-<T> _ int / int
-<T> _ record <G> end / record
-<G> _ <I> : <T> <B> / a b c
-<I> _ a / a
-<I> _ b / b
-<I> _ c / c
-<A> _ @ / #
-<A> _ ; <F> / ;
-<B> _ @ / end
-<B> _ ; <G> / ;
+<S> - type <F>
+<F> - <I> = <T>
+<F> - <I> = <T> ; <F>
+<T> - int
+<T> - record <G> end
+<G> - <I> : <T>
+<G> - <I> : <T> ; <G>
+<I> - a
+<I> - b
+<I> - c

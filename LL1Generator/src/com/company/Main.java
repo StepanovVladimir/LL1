@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.RandomAccessFile;
 import java.util.*;
 
+
 public class Main
 {
     private static boolean isNonTerminal(String str)
@@ -19,53 +20,54 @@ public class Main
 
     private  static void saveAnalyzedTerminals(ArrayList<Grammer> saveTable, HashMap<String, String> grammar, String analyzeTerminals)
     {
-        System.out.println(analyzeTerminals);
-        String[] terminals = analyzeTerminals.split(" ");
+            System.out.println(analyzeTerminals);
+            String[] terminals = analyzeTerminals.split(" ");
 
-        for (int i = 0; i < terminals.length; i++)
-        {
-            if ((!terminals[i].equals("")))
+            for (int i = 0; i < terminals.length; i++)
             {
-                if (!terminals[i].equals("~"))
-                {
-                    System.out.println(terminals[i]);
-                    Grammer gr = new Grammer();
-                    if (isNonTerminal(terminals[i]))
-                    {
-                        gr.NonTerminal = terminals[i];
-                        String termnls = grammar.get(terminals[i]);
-                        gr.Terminal = Objects.requireNonNullElse(termnls, "Error");
-                    }
-                    else
-                    {
-                        gr.NonTerminal = terminals[i];
-                        gr.Terminal = terminals[i];
+                if ((!terminals[i].equals(""))) {
+                    if (!terminals[i].equals("~")) {
+                        System.out.println(terminals[i]);
+                        Grammer gr = new Grammer();
+                        if (isNonTerminal(terminals[i]))
+                        {
+                            gr.NonTerminal = terminals[i];
+                            String termnls = grammar.get(terminals[i]);
+                            gr.Terminal = Objects.requireNonNullElse(termnls, "Error");
+                        }
+                        else
+                        {
+                            gr.NonTerminal = terminals[i];
+                            gr.Terminal = terminals[i];
 
-                        if (terminals.length != i + 1) {
-                            if (terminals[i + 1].isEmpty()) {
-                                gr.dirNum = 0;
-                            } else {
-                                if (!isNonTerminal(terminals[i]))
-                                    gr.dirNum = saveTable.size() + 2;
+                            if (terminals.length != i + 1)
+                            {
+                                if (terminals[i + 1].isEmpty())
+                                {
+                                    gr.dirNum = 0;
+                                }
+                                else
+                                {
+                                    if (!isNonTerminal(terminals[i]))
+                                        gr.dirNum = saveTable.size() + 2;
+                                }
                             }
-                        } else {
-
-                            if (!isNonTerminal(terminals[i]))
-                                gr.dirNum = 0;
-
+                            else
+                            {
+                                if (!isNonTerminal(terminals[i]))
+                                    gr.dirNum = 0;
+                            }
                         }
 
-                    }
-
-                    if (i != terminals.length - 1) {
-                        if (terminals[i + 1].equals("~")) {
-                            gr.isEndInLine = -1;
+                        if (i != terminals.length - 1) {
+                            if (terminals[i + 1].equals("~")) {
+                                gr.isEndInLine = -1;
+                            }
                         }
+                        saveTable.add(gr);
                     }
-                    saveTable.add(gr);
                 }
             }
-        }
     }
 
     public static void setShift(Grammer grammer)
@@ -80,8 +82,12 @@ public class Main
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        File text = new File(args[0]);
+    public static void main(String[] args) throws Exception
+    {
+        String[] files = { args[0], "tempFile.txt" };
+        GuideSets.createGuideSets(files);
+
+        File text = new File("tempFile.txt");
         FileWriter fr = new FileWriter(text, true);
         fr.write("/ _ /\n");
         fr.close();
@@ -100,8 +106,10 @@ public class Main
             {
                 String[] dir = keyValue[1].split("/");
 
+
                 if (!NonTerminal.equals(""))
                 {
+
                     if (!NonTerminal.equals(keyValue[0])) {
                         grammar.put(NonTerminal, dirs.toString());
                         dirs = new StringBuilder();
@@ -122,7 +130,8 @@ public class Main
 
         String NonTerminalch = "";
         StringBuilder analyzeAlldirs  = new StringBuilder();
-        while(scnr2.hasNextLine()) {
+        while(scnr2.hasNextLine())
+        {
             String line = scnr2.nextLine();
             String[] value = line.split("_");
             value[0] = value[0].trim();
@@ -132,7 +141,8 @@ public class Main
 
                 if (!NonTerminalch.equals(""))
                 {
-                    if (!NonTerminalch.equals(value[0])) {
+                    if (!NonTerminalch.equals(value[0]))
+                    {
                         saveAnalyzedTerminals(saveTable, grammar, analyzeAlldirs.toString());
                         analyzeAlldirs = new StringBuilder();
                     }
@@ -140,7 +150,8 @@ public class Main
 
                 dir[0] += '~';
 
-                if (dir.length >= 2) {
+                if (dir.length >= 2)
+                {
                     Grammer gr = new Grammer();
                     gr.NonTerminal = value[0];
                     gr.Terminal = dir[1];
@@ -166,10 +177,9 @@ public class Main
                 for(int j = i + 1; j < saveTable.size(); j++)
                 {
                     String ch3Tr = saveTable.get(j).Terminal.replaceAll("\\s","");
-                    if (ch.equals(ch3Tr))
-                    {
-                        saveTable.get(i).dirNum = j + 1;
-                        break;
+                    if (ch.equals(ch3Tr)) {
+                            saveTable.get(i).dirNum = j + 1;
+                            break;
                     }
                 }
             }
@@ -220,6 +230,7 @@ public class Main
                            }
                         }
                     }
+
                 }
             }
         }
@@ -234,9 +245,7 @@ public class Main
                 {
                     if (i + 1!= saveTable.size()) {
                         if ((!saveTable.get(i + 1).isSetDir) && isNonTerminal(saveTable.get(i).NonTerminal)) {
-
-                                saveTable.get(i).stack = 1;
-
+                            saveTable.get(i).stack = 1;
                         }
                     }
                 }
@@ -249,8 +258,8 @@ public class Main
         }
 
         //Handle Error
-        for(int i = 0; i < saveTable.size(); i++)
-        {
+        for(int i = 0; i < saveTable.size(); i++) {
+
             if (saveTable.get(i).isSetDir) {
                 if (i + 1 != saveTable.size()) {
                     if (saveTable.get(i + 1).isSetDir) {
@@ -263,8 +272,8 @@ public class Main
                 }
             }
         }
-
         // handle end in chain and dirs
+        System.out.println("______");
         for(int i = 0; i < saveTable.size(); i++)
         {
             if (saveTable.get(i).isEndInLine == -1)
@@ -275,6 +284,11 @@ public class Main
             if(saveTable.get(i).dirNum == -1)
             {
                 saveTable.get(i).dirNum = i + 2;
+            }
+
+            if(saveTable.get(i).isEndInLine == -1 && !isNonTerminal(saveTable.get(i).NonTerminal))
+            {
+                saveTable.get(i).dirNum = 0;
             }
         }
 

@@ -8,11 +8,11 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main
+public class GuideSets
 {
     private static String axiom;
 
-    public static void main(String[] args)
+    public static void createGuideSets(String[] args)
     {
         try
         {

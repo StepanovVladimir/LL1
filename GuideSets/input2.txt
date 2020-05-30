@@ -1,6 +1,0 @@
-<F> - function <G> end
-<G> - a := <E>
-<G> - a := <E> ; <G>
-<E> - <E> * a
-<E> - <E> + a
-<E> - a
