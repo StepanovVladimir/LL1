@@ -94,7 +94,10 @@ public class GuideSets
                     if (!rules.getKey().equals(rule.rule.get(0)))
                     {
                         Rule newRule = new Rule();
-                        newRule.rule.addAll(rule.rule);
+                        if (!rule.rule.get(0).equals("@"))
+                        {
+                            newRule.rule.addAll(rule.rule);
+                        }
                         newRule.rule.add(newNontermChar);
                         newRules1.add(newRule);
                     }
