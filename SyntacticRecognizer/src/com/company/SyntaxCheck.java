@@ -5,14 +5,14 @@ import java.util.Stack;
 
 public class SyntaxCheck {
     List<Row> grammer;
-    List<String> in;
-    String _currLexem;
+    List<Token> in;
+    Token _currLexem;
     Integer _currentTableIndex;
     Integer _currentWordIndex;
     Stack<Integer> stackIndex = new Stack<>();
 
 
-    public SyntaxCheck(List<Row> grammer, List<String> in) {
+    public SyntaxCheck(List<Row> grammer, List<Token> in) {
         this.grammer = grammer;
         this.in = in;
     }
@@ -27,7 +27,11 @@ public class SyntaxCheck {
 
     private boolean CheckRow()
     {
-        return grammer.get(_currentTableIndex).directionSet.contains(_currLexem);
+        if (grammer.get(_currentTableIndex).directionSet.contains(_currLexem.value)) {
+            return true;
+        } else {
+            return grammer.get(_currentTableIndex).directionSet.contains("[" + _currLexem.tokentype.toString() + "]");
+        }
     }
 
     private String CheckWords()
@@ -54,9 +58,9 @@ public class SyntaxCheck {
             {
                 _currentTableIndex++;
             } else {
-                System.out.println("Ошибка в строке " + grammer.get(_currentTableIndex).number);
+                System.out.println("Ошибка в " + _currLexem.line + ":" + _currLexem.pos);
                 System.out.println("Ожидалось: " + grammer.get(_currentTableIndex).directionSet);
-                System.out.println("Встретился: " + _currLexem);
+                System.out.println("Встретился: " + _currLexem.value);
                 return "ERROR";
             }
         }

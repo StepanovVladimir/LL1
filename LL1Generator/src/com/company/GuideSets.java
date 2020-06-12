@@ -219,8 +219,8 @@ public class GuideSets
                 {
                     if (rules.getKey().equals(axiom))
                     {
-                        rule.guideSet.add("#");
-                        guideSet.add("#");
+                        rule.guideSet.add("[EndOfInput]");
+                        guideSet.add("[EndOfInput]");
                     }
                     Set<String> researchedNontermChars = new TreeSet<>();
                     researchedNontermChars.add(rules.getKey());
@@ -285,7 +285,7 @@ public class GuideSets
                 {
                     writer.write(str + " ");
                 }
-                writer.write("# /");
+                writer.write("[EndOfInput] /");
                 for (String str : rule.guideSet)
                 {
                     writer.write(" " + str);
@@ -357,7 +357,7 @@ public class GuideSets
                         {
                             if (rules.getKey().equals(axiom))
                             {
-                                guideSet.add("#");
+                                guideSet.add("[EndOfInput]");
                             }
                             researchedNontermChars.add(rules.getKey());
                             guideSet.addAll(findNext(rules.getKey(), grammar, researchedNontermChars, initialNonterm));

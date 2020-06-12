@@ -5,4 +5,8 @@
 <T> - <F>
 <F> - ( <E> )
 <F> - - <F>
-<F> - a
+<F> - [Identifier]
+<F> - [Integer]
+<F> - [Binary]
+<F> - [Hexadecimal]
+<F> - [FloatPointNumber]

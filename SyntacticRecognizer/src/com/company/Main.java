@@ -17,7 +17,7 @@ public class Main {
                 Row row = new Row();
                 row.number = Integer.parseInt(scanner.next());
                 String dirSetString = scanner.next();
-                row.directionSet = new HashSet<String>( Arrays.asList( dirSetString.split(",", -1) ) );
+                row.directionSet = new HashSet<>(Arrays.asList(dirSetString.split("_", -1)));
                 row.shift = Integer.parseInt(scanner.next());
                 row.dirNum = Integer.parseInt(scanner.next());
                 row.stack = Integer.parseInt(scanner.next());
@@ -30,13 +30,16 @@ public class Main {
         }
 
 
-        List<String> ins = new ArrayList<>();
+        List<Token> ins = new ArrayList<>();
         try {
-            Scanner scanner = new Scanner(new File(args[1]));
-            while (scanner.hasNext()) {
-                ins.add(scanner.next());
-            }
-            ins.add("#");
+            Lexer lexer = new Lexer(args[1]);
+            Token token;
+
+            do {
+                token = lexer.getToken();
+                ins.add(token);
+            } while (token.tokentype != TokenType.EndOfInput);
+
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getLocalizedMessage());
         }

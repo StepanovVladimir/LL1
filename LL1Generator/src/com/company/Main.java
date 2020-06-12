@@ -75,7 +75,7 @@ public class Main
         if(!grammer.isSetDir)
         {
             String ch = grammer.NonTerminal.replaceAll("\\s","");
-            if(!isNonTerminal(ch) && !ch.equals("@") && !ch.equals("#"))
+            if(!isNonTerminal(ch) && !ch.equals("@") && !ch.equals("[EndOfInput]"))
             {
                 grammer.Shift = 1;
             }
@@ -251,7 +251,7 @@ public class Main
                 }
             }
 
-            if(saveTable.get(i).Terminal.replaceAll("\\s","").equals("#"))
+            if (saveTable.get(i).Terminal.replaceAll("\\s","").equals("[EndOfInput]"))
             {
                 saveTable.get(i).EndState = 1;
             }
@@ -312,10 +312,10 @@ public class Main
         outputwrite.write("№" +" "+  "DirsSet" +" " + "Sift"  + " " + "DirNum"  + " " + "Stack" + " " +"Error" + " " +"EndState"+ "\n");
         for(int i = 0; i< saveTable.size(); i++)
         {
-            int num = i +1;
+            int num = i + 1;
             String str = saveTable.get(i).Terminal;
             str = str.trim();
-            str = str.replace(" ", ",");
+            str = str.replace(" ", "_");
 
             outputwrite.write(num + " " +  str + " " + saveTable.get(i).Shift
                     + " " +  saveTable.get(i).dirNum + " " + saveTable.get(i).stack + " " + saveTable.get(i).Error + " " + saveTable.get(i).EndState + '\n');

@@ -1,9 +1,14 @@
-<U> _ <A> <B> <C> # / a b # c
-<0> _ @ / b # c
-<0> _ a <0> / a
-<1> _ @ / # c
-<1> _ b <1> / b
-<A> _ <0> / a b # c
-<B> _ <1> / b # c
-<C> _ @ / #
-<C> _ c <C> / c
+<S> _ <E> [EndOfInput] / [Integer] [Identifier] ( [Hexadecimal] - [Binary] [FloatPointNumber]
+<0> _ @ / ) [EndOfInput]
+<0> _ + <T> <0> / +
+<1> _ @ / ) [EndOfInput] +
+<1> _ * <F> <1> / *
+<E> _ <T> <0> / [Integer] [Identifier] ( [Hexadecimal] - [Binary] [FloatPointNumber]
+<F> _ ( <E> ) / (
+<F> _ - <F> / -
+<F> _ [Identifier] / [Identifier]
+<F> _ [Integer] / [Integer]
+<F> _ [Binary] / [Binary]
+<F> _ [Hexadecimal] / [Hexadecimal]
+<F> _ [FloatPointNumber] / [FloatPointNumber]
+<T> _ <F> <1> / [Integer] [Identifier] ( [Hexadecimal] - [Binary] [FloatPointNumber]
