@@ -42,20 +42,16 @@ public class SyntaxCheck {
                 isShift();
                 isStack();
 
-                if (grammer.get(_currentTableIndex).dirNum != 0)  // переходим по dirNum
-                {
+                if (grammer.get(_currentTableIndex).dirNum != 0) { // переходим по dirNum
                     _currentTableIndex = grammer.get(_currentTableIndex).dirNum - 1;
-                } else if (grammer.get(_currentTableIndex).dirNum == 0 && stackIndex.size() > 0)  // переходим по стеку, если нельзя по dirNum
-                {
+                } else if (grammer.get(_currentTableIndex).dirNum == 0 && stackIndex.size() > 0) { // переходим по стеку, если нельзя по dirNum
                     _currentTableIndex = stackIndex.lastElement();
                     stackIndex.remove(stackIndex.size() - 1);
-                } else if (stackIndex.size() == 0 && grammer.get(_currentTableIndex).isEnd == 1)
-                {
+                } else if (stackIndex.size() == 0 && grammer.get(_currentTableIndex).isEnd == 1) {
                     return "OK";
                 }
 
-            } else if (grammer.get(_currentTableIndex).error == -1)
-            {
+            } else if (grammer.get(_currentTableIndex).error == -1) {
                 _currentTableIndex++;
             } else {
                 System.out.println("Ошибка в " + _currLexem.line + ":" + _currLexem.pos);

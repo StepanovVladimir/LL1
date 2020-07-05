@@ -115,7 +115,7 @@ public class GuideSets
                 newNontermChars.put(newNontermChar, newRules2);
             }
 
-            String recurringChar = null;
+            Set<String> recurringChars = new TreeSet<>();
             Set<String> firstChars = new TreeSet<>();
             for (Rule rule : rules.getValue())
             {
@@ -125,11 +125,11 @@ public class GuideSets
                 }
                 else
                 {
-                    recurringChar = rule.rule.get(0);
+                    recurringChars.add(rule.rule.get(0));
                 }
             }
 
-            if (recurringChar != null)
+            for (String recurringChar : recurringChars)
             {
                 ArrayList<Integer> recurringRulesIndexes = new ArrayList<>();
                 for (int i = 0; i < rules.getValue().size(); ++i)
@@ -285,7 +285,7 @@ public class GuideSets
                 {
                     writer.write(str + " ");
                 }
-                writer.write("[EndOfInput] /");
+                writer.write("[EndOfInput] #");
                 for (String str : rule.guideSet)
                 {
                     writer.write(" " + str);
@@ -305,7 +305,7 @@ public class GuideSets
                             {
                                 writer.write(str + " ");
                             }
-                            writer.write("/");
+                            writer.write("#");
                             for (String str : rule.guideSet)
                             {
                                 writer.write(" " + str);
@@ -322,7 +322,7 @@ public class GuideSets
                             {
                                 writer.write(str + " ");
                             }
-                            writer.write("/");
+                            writer.write("#");
                             for (String str : rule.guideSet)
                             {
                                 writer.write(" " + str);

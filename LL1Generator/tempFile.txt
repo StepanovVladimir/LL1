@@ -1,14 +1,67 @@
-<S> _ <E> [EndOfInput] / [Integer] [Identifier] ( [Hexadecimal] - [Binary] [FloatPointNumber]
-<0> _ @ / ) [EndOfInput]
-<0> _ + <T> <0> / +
-<1> _ @ / ) [EndOfInput] +
-<1> _ * <F> <1> / *
-<E> _ <T> <0> / [Integer] [Identifier] ( [Hexadecimal] - [Binary] [FloatPointNumber]
-<F> _ ( <E> ) / (
-<F> _ - <F> / -
-<F> _ [Identifier] / [Identifier]
-<F> _ [Integer] / [Integer]
-<F> _ [Binary] / [Binary]
-<F> _ [Hexadecimal] / [Hexadecimal]
-<F> _ [FloatPointNumber] / [FloatPointNumber]
-<T> _ <F> <1> / [Integer] [Identifier] ( [Hexadecimal] - [Binary] [FloatPointNumber]
+<Goal> _ <Funcs> [EndOfInput] # void bool string binary [EndOfInput] hex integer
+<0> _ @ # ) ; ,
+<0> _ <BinaryOperation> <Expression> <0> # == <= % & * + - / != < | > >=
+<1> _ ( <Expressions> ) <0> # (
+<1> _ <0> # == <= % & ) * + , - / ; != < | > >=
+<2> _ ; # ;
+<2> _ = <Expression> ; # =
+<3> _ ( <Expressions> ) ; # (
+<3> _ = <Expression> ; # =
+<4> _ <Expression> ; # ! [Integer] read [Identifier] ( false true [Hexadecimal] - [Binary] [FloatPointNumber]
+<4> _ ; # ;
+<Args> _ @ # )
+<Args> _ <Type> [Identifier] <CommaArgs> # bool string binary hex integer
+<BinaryOperation> _ + # +
+<BinaryOperation> _ - # -
+<BinaryOperation> _ * # *
+<BinaryOperation> _ / # /
+<BinaryOperation> _ % # %
+<BinaryOperation> _ & # &
+<BinaryOperation> _ | # |
+<BinaryOperation> _ < # <
+<BinaryOperation> _ > # >
+<BinaryOperation> _ <= # <=
+<BinaryOperation> _ >= # >=
+<BinaryOperation> _ == # ==
+<BinaryOperation> _ != # !=
+<CommaArgs> _ @ # )
+<CommaArgs> _ , <Type> [Identifier] <CommaArgs> # ,
+<CommaExpressions> _ @ # )
+<CommaExpressions> _ , <Expression> <CommaExpressions> # ,
+<Else> _ @ # read bool string [Identifier] integer while print binary hex { if } return
+<Else> _ else <Statement> # else
+<Expression> _ read ( ) <0> # read
+<Expression> _ [Integer] <0> # [Integer]
+<Expression> _ [Binary] <0> # [Binary]
+<Expression> _ [Hexadecimal] <0> # [Hexadecimal]
+<Expression> _ [FloatPointNumber] <0> # [FloatPointNumber]
+<Expression> _ true <0> # true
+<Expression> _ false <0> # false
+<Expression> _ ! <Expression> <0> # !
+<Expression> _ - <Expression> <0> # -
+<Expression> _ ( Expression ) <0> # (
+<Expression> _ [Identifier] <1> # [Identifier]
+<Expressions> _ @ # )
+<Expressions> _ <Expression> <CommaExpressions> # ! [Integer] read [Identifier] ( false true [Hexadecimal] - [Binary] [FloatPointNumber]
+<Func> _ <FuncType> <FuncName> ( <Args> ) { <Statements> } # void bool string binary hex integer
+<FuncName> _ [Identifier] # [Identifier]
+<FuncName> _ main # main
+<FuncType> _ <Type> # bool string binary hex integer
+<FuncType> _ void # void
+<Funcs> _ @ # [EndOfInput]
+<Funcs> _ <Func> <Funcs> # void bool string binary hex integer
+<Statement> _ { <Statements> } # {
+<Statement> _ if ( <Expression> ) <Statement> <Else> # if
+<Statement> _ while ( <Expression> ) <Statement> # while
+<Statement> _ print ( <Expression> ) ; # print
+<Statement> _ read ( ) ; # read
+<Statement> _ <Type> [Identifier] <2> # bool string binary hex integer
+<Statement> _ [Identifier] <3> # [Identifier]
+<Statement> _ return <4> # return
+<Statements> _ @ # }
+<Statements> _ <Statement> <Statements> # print read bool string [Identifier] binary hex integer { while if return
+<Type> _ integer # integer
+<Type> _ bool # bool
+<Type> _ string # string
+<Type> _ hex # hex
+<Type> _ binary # binary

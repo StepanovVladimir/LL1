@@ -6,16 +6,11 @@ import java.io.FileWriter;
 import java.io.RandomAccessFile;
 import java.util.*;
 
-
 public class Main
 {
     private static boolean isNonTerminal(String str)
     {
-        if (str.equals(""))
-        {
-            return false;
-        }
-        return str.charAt(0) == '<' && (str.charAt(str.length() - 1) == '>' || str.charAt(str.length() - 2) == '>');
+        return str.length() > 2 && str.charAt(0) == '<' && str.charAt(str.length() - 1) == '>';
     }
 
     private  static void saveAnalyzedTerminals(ArrayList<Grammer> saveTable, HashMap<String, String> grammar, String analyzeTerminals)
@@ -72,10 +67,10 @@ public class Main
 
     public static void setShift(Grammer grammer)
     {
-        if(!grammer.isSetDir)
+        if (!grammer.isSetDir)
         {
             String ch = grammer.NonTerminal.replaceAll("\\s","");
-            if(!isNonTerminal(ch) && !ch.equals("@") && !ch.equals("[EndOfInput]"))
+            if (!isNonTerminal(ch) && !ch.equals("@") && !ch.equals("[EndOfInput]"))
             {
                 grammer.Shift = 1;
             }
@@ -89,7 +84,7 @@ public class Main
 
         File text = new File("tempFile.txt");
         FileWriter fr = new FileWriter(text, true);
-        fr.write("/ _ /\n");
+        fr.write("# _ #\n");
         fr.close();
 
         Scanner scnr = new Scanner(text);
@@ -98,19 +93,19 @@ public class Main
         String NonTerminal = "";
         StringBuilder dirs = new StringBuilder();
 
-        while(scnr.hasNextLine()){
+        while (scnr.hasNextLine())
+        {
             String line = scnr.nextLine();
             String[] keyValue = line.split("_");
             keyValue[0] = keyValue[0].trim();
-            if(keyValue.length == 2)
+            if (keyValue.length == 2)
             {
-                String[] dir = keyValue[1].split("/");
-
+                String[] dir = keyValue[1].split("#");
 
                 if (!NonTerminal.equals(""))
                 {
-
-                    if (!NonTerminal.equals(keyValue[0])) {
+                    if (!NonTerminal.equals(keyValue[0]))
+                    {
                         grammar.put(NonTerminal, dirs.toString());
                         dirs = new StringBuilder();
                     }
@@ -137,7 +132,7 @@ public class Main
             value[0] = value[0].trim();
             if(value.length == 2)
             {
-                String[] dir = value[1].split("/");
+                String[] dir = value[1].split("#");
 
                 if (!NonTerminalch.equals(""))
                 {
@@ -169,17 +164,24 @@ public class Main
         }
 
         //nonterminals with links dirs (nonterminals true)
-        for(int i = 0; i < saveTable.size(); i++)
+        for (int i = 0; i < saveTable.size(); i++)
         {
             if (saveTable.get(i).isSetDir)
             {
-                String ch = saveTable.get(i).Terminal.replaceAll("\\s","");
-                for(int j = i + 1; j < saveTable.size(); j++)
+                Set<String> chs = new TreeSet<>();
+                Collections.addAll(chs, saveTable.get(i).Terminal.split(" "));
+                chs.remove("");
+                //String ch = saveTable.get(i).Terminal.replaceAll("\\s","");
+                for (int j = i + 1; j < saveTable.size(); j++)
                 {
-                    String ch3Tr = saveTable.get(j).Terminal.replaceAll("\\s","");
-                    if (ch.equals(ch3Tr)) {
-                            saveTable.get(i).dirNum = j + 1;
-                            break;
+                    Set<String> chs3Tr = new TreeSet<>();
+                    Collections.addAll(chs3Tr, saveTable.get(j).Terminal.split(" "));
+                    chs3Tr.remove("");
+                    //String ch3Tr = saveTable.get(j).Terminal.replaceAll("\\s","");
+                    if (chs.equals(chs3Tr))
+                    {
+                        saveTable.get(i).dirNum = j + 1;
+                        break;
                     }
                 }
             }
@@ -211,10 +213,10 @@ public class Main
         }
 
         //find  dirs for empty
-        for(int i = 0; i < saveTable.size(); i++)
+        for (int i = 0; i < saveTable.size(); i++)
         {
             String empty = saveTable.get(i).Terminal.replaceAll("\\s","");
-            if(empty.equals("@"))
+            if (empty.equals("@"))
             {
                 for (int j = i; j >= 0 ; j--)
                 {
@@ -230,7 +232,6 @@ public class Main
                            }
                         }
                     }
-
                 }
             }
         }

@@ -1,0 +1,62 @@
+<Goal> - <Funcs>
+<Funcs> - <Func> <Funcs>
+<Funcs> - @
+<Func> - <FuncType> <FuncName> ( <Args> ) { <Statements> }
+<FuncType> - <Type>
+<FuncType> - void
+<Type> - integer
+<Type> - bool
+<Type> - string
+<Type> - hex
+<Type> - binary
+<FuncName> - [Identifier]
+<FuncName> - main
+<Args> - <Type> [Identifier] <CommaArgs>
+<Args> - @
+<CommaArgs> - , <Type> [Identifier] <CommaArgs>
+<CommaArgs> - @
+<Statements> - <Statement> <Statements>
+<Statements> - @
+<Statement> - { <Statements> }
+<Statement> - if ( <Expression> ) <Statement> <Else>
+<Statement> - while ( <Expression> ) <Statement>
+<Statement> - print ( <Expression> ) ;
+<Statement> - read ( ) ;
+<Statement> - [Identifier] ( <Expressions> ) ;
+<Statement> - <Type> [Identifier] ;
+<Statement> - <Type> [Identifier] = <Expression> ;
+<Statement> - [Identifier] = <Expression> ;
+<Statement> - return <Expression> ;
+<Statement> - return ;
+<Else> - else <Statement>
+<Else> - @
+<Expression> - <Expression> <BinaryOperation> <Expression>
+<Expression> - read ( )
+<Expression> - [Identifier] ( <Expressions> )
+<Expression> - [Identifier]
+<Expression> - [Integer]
+<Expression> - [Binary]
+<Expression> - [Hexadecimal]
+<Expression> - [FloatPointNumber]
+<Expression> - true
+<Expression> - false
+<Expression> - ! <Expression>
+<Expression> - - <Expression>
+<Expression> - ( Expression )
+<Expressions> - <Expression> <CommaExpressions>
+<Expressions> - @
+<CommaExpressions> - , <Expression> <CommaExpressions>
+<CommaExpressions> - @
+<BinaryOperation> - +
+<BinaryOperation> - -
+<BinaryOperation> - *
+<BinaryOperation> - /
+<BinaryOperation> - %
+<BinaryOperation> - &
+<BinaryOperation> - |
+<BinaryOperation> - <
+<BinaryOperation> - >
+<BinaryOperation> - <=
+<BinaryOperation> - >=
+<BinaryOperation> - ==
+<BinaryOperation> - !=

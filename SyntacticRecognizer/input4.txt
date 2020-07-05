@@ -1,0 +1,22 @@
+integer getSum(integer a, integer b)
+{
+    return a + b;
+}
+
+void main()
+{
+    integer i = 5;
+    if (i == 5)
+    {
+        print(read());
+    }
+    else
+    {
+        print(i);
+    }
+
+    if (true)
+    {
+        print(getSum(i, 10));
+    }
+}

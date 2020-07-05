@@ -1,0 +1,15 @@
+№ DirsSet Sift DirNum Stack Error EndState
+1 a_b -1 2 -1 1 -1
+2 a_b -1 10 1 1 -1
+3 [EndOfInput] -1 0 -1 1 1
+4 a_b_[EndOfInput] -1 6 -1 -1 -1
+5 c -1 7 -1 1 -1
+6 a_b_[EndOfInput] -1 0 -1 1 -1
+7 c 1 8 -1 1 -1
+8 a_b_[EndOfInput]_c -1 4 1 1 -1
+9 a_b -1 10 -1 1 -1
+10 a -1 12 -1 -1 -1
+11 b -1 14 -1 1 -1
+12 a 1 13 -1 1 -1
+13 a_b_[EndOfInput]_c -1 4 -1 1 -1
+14 b 1 0 -1 1 -1
